@@ -1,9 +1,10 @@
 #!/bin/bash
 # Usage:
+#   ./dsa.sh listen                      — start competitive-companion listener
 #   ./dsa.sh new <num> <name> <url>      — create files + download test cases
 #   ./dsa.sh test <file>                 — test solution against samples
 #   ./dsa.sh submit <file> <url>         — submit to Codeforces/LeetCode
-#   ./dsa.sh push <num> <name> <url>     — git commit + push after solving
+#   ./dsa.sh push <slug>                 — git commit + push after solving
 
 set -e
 
@@ -19,6 +20,11 @@ print((today - start).days // 7 + 1)
 WEEK_DIR="$SCRIPT_DIR/week-$(printf '%02d' $WEEK)"
 
 case "$1" in
+
+  # ── listen ─────────────────────────────────────────────────────────────
+  listen)
+    python3 "$SCRIPT_DIR/listen.py"
+    ;;
 
   # ── new ────────────────────────────────────────────────────────────────
   new)
@@ -97,30 +103,31 @@ case "$1" in
 
   # ── push ───────────────────────────────────────────────────────────────
   push)
-    NUM="$2"; NAME="$3"; URL="$4"
-    if [ -z "$NUM" ] || [ -z "$NAME" ] || [ -z "$URL" ]; then
-      echo "Usage: ./dsa.sh push <num> <name> <url>"
+    SLUG="$2"
+    if [ -z "$SLUG" ]; then
+      echo "Usage: ./dsa.sh push <slug>   (e.g. J-multiples)"
       exit 1
     fi
 
     REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
     cd "$REPO_ROOT"
 
-    git add "my-journey/dsa/week-$(printf '%02d' $WEEK)/${NUM}-${NAME}.py" \
-            "my-journey/dsa/week-$(printf '%02d' $WEEK)/${NUM}-${NAME}.cpp" 2>/dev/null || true
+    git add "my-journey/dsa/week-$(printf '%02d' $WEEK)/${SLUG}.py" \
+            "my-journey/dsa/week-$(printf '%02d' $WEEK)/${SLUG}.cpp" 2>/dev/null || true
 
-    git commit -m "solve: ${NUM}-${NAME} — week ${WEEK}"
+    git commit -m "solve: ${SLUG} — week ${WEEK}"
     git push origin main
-    echo "Pushed to GitHub."
+    echo "Pushed."
     ;;
 
   # ── help ───────────────────────────────────────────────────────────────
   *)
     echo ""
+    echo "  ./dsa.sh listen                      Start competitive-companion listener"
     echo "  ./dsa.sh new    <num> <name> <url>   Create files + download tests"
     echo "  ./dsa.sh test   <file>               Test solution against samples"
     echo "  ./dsa.sh submit <file> <url>         Submit to judge"
-    echo "  ./dsa.sh push   <num> <name> <url>   Commit + push to GitHub"
+    echo "  ./dsa.sh push   <slug>               Commit + push to GitHub"
     echo ""
     ;;
 esac
