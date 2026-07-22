@@ -1,6 +1,6 @@
-// Problem:
+// Problem: A. Say Hello With C++
 // Pattern:
-// Link:
+// Link: https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/A
 // Difficulty:
 // Time:  O()
 // Space: O()
@@ -9,7 +9,9 @@
 using namespace std;
 
 void solve() {
-
+    string name;
+    cin >> name;
+    cout << "Hello, " << name << "\n";
 }
 
 int main() {

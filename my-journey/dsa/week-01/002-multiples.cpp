@@ -1,6 +1,6 @@
-// Problem: Is A Greater Than B
+// Problem: Multiples
 // Pattern: Basics / Conditionals
-// Link: https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/I
+// Link: https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/J
 // Difficulty: Easy
 // Time:  O(1)
 // Space: O(1)
@@ -11,7 +11,11 @@ using namespace std;
 void solve() {
     int a, b;
     cin >> a >> b;
-    cout << (a > b ? "YES" : "NO") << "\n";
+    // your logic here
+    if (a % b == 0 || b % a == 0)
+        cout << "Multiples\n";
+    else
+        cout << "No Multiples\n";
 }
 
 int main() {
