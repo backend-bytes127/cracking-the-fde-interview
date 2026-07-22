@@ -21,7 +21,7 @@
 
 ### Week 1 · Jul 22–28
 
-- [x] Jul 22 — `001-is-greater` · Basics · Easy
+- [x] Jul 22 — [001-is-greater](dsa/week-01/001-is-greater.py) · Basics · Easy
 - [ ] Jul 23 — 
 - [ ] Jul 24 — 
 - [ ] Jul 25 — 
