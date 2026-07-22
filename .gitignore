@@ -4,6 +4,7 @@ __pycache__/
 # Local test inputs — never push these
 input.txt
 *.in
+my-journey/dsa/*/tests/
 
 # C++ compiled output
 *.o
