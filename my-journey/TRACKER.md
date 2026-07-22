@@ -21,7 +21,7 @@
 
 ### Week 1 · Jul 22–28
 
-- [x] Jul 22 — [Is A Greater Than B](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/I) · Basics · Easy
+- [x] Jul 22 — [Is A Greater Than B](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/I) · [py](dsa/week-01/001-is-greater.py) · [cpp](dsa/week-01/001-is-greater.cpp) · Basics · Easy
 - [ ] Jul 23 — 
 - [ ] Jul 24 — 
 - [ ] Jul 25 — 
