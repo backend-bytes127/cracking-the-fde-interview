@@ -10,10 +10,10 @@
 
 | Metric | Count |
 |--------|-------|
-| Problems solved | 1 |
+| Problems solved | 3 |
 | Mock interviews | 0 |
-| Current streak | 1 day |
-| Longest streak | 1 day |
+| Current streak | 2 days |
+| Longest streak | 2 days |
 
 ---
 
@@ -22,7 +22,9 @@
 ### Week 1 · Jul 22–28
 
 - [x] Jul 22 — [Is A Greater Than B](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/I) · [py](dsa/week-01/001-is-greater.py) · [cpp](dsa/week-01/001-is-greater.cpp) · Basics · Easy
-- [ ] Jul 23 — 
+- [x] Jul 23 — [Multiples](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/J) · [py](dsa/week-01/002-multiples.py) · [cpp](dsa/week-01/002-multiples.cpp) · Basics · Easy
+- [x] Jul 23 — [Say Hello With C++](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/A) · [py](dsa/week-01/A-say-hello-with-c.py) · [cpp](dsa/week-01/A-say-hello-with-c.cpp) · Basics · Easy
+- [ ] Jul 24 — 
 - [ ] Jul 24 — 
 - [ ] Jul 25 — 
 - [ ] Jul 26 — 
