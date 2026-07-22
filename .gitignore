@@ -1,5 +1,14 @@
 # Python
 __pycache__/
+
+# Local test inputs — never push these
+input.txt
+*.in
+
+# C++ compiled output
+*.o
+*.out
+a.out
 *.py[cod]
 *$py.class
 *.so
