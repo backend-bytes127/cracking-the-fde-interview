@@ -21,7 +21,7 @@
 
 | Day | Focus |
 |-----|-------|
-| Mon / Wed / Fri | FAANG — S30 lesson + LC daily problem |
+| Mon / Wed / Fri | FAANG — LeetCode problems (see [FAANG-TRACKER.md](FAANG-TRACKER.md)) |
 | Tue / Thu | CP — TLE Eliminators (Codeforces) |
 | Weekend | Contests (Codeforces / LC Weekly) |
 
@@ -194,24 +194,13 @@ Files live in `dsa/cp/week-XX/python/` and `dsa/cp/week-XX/cpp/`
 
 ---
 
-## FAANG Track — S30 + LeetCode
+## FAANG Track — LeetCode
 
-Files live in `dsa/faang/week-XX/python/` and `dsa/faang/week-XX/cpp/`
+Full problem list with code links: **[FAANG-TRACKER.md](FAANG-TRACKER.md)**
 
-Format: `- [x] Date — [Problem](LC_URL) · [py](...) · [cpp](...) · Pattern · Difficulty`
+184 problems organized by topic (Design, Binary Search, Hashing, DP, Arrays, Trees, Graphs, etc.)
 
-### Week 1 · Jul 22–28
-
-- [ ] Jul 25 — 
-- [ ] Jul 28 — 
-
-### Week 2 · Jul 29–Aug 4
-
-- [ ] Jul 30 — 
-- [ ] Aug 03 — 
-- [ ] Aug 04 — 
-
-> Add entries as you solve. Mon/Wed/Fri cadence.
+Files live in `dsa/faang/{topic-batch}/python/` and `dsa/faang/{topic-batch}/cpp/`
 
 ---
 

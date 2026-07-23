@@ -62,6 +62,9 @@ Thumbs.db
 .ipynb_checkpoints
 *.ipynb
 
+# Curriculum source files — reference only, not part of the repo
+*.xlsx
+
 # Distribution / packaging
 *.manifest
 *.spec
