@@ -69,14 +69,14 @@ case "$1" in
     fi
 
     EXT="${FILE##*.}"
-    FILE_DIR="$(dirname "$FILE")"
     BASENAME="$(basename "$FILE")"
     PROBLEM="${BASENAME%.*}"
-    TEST_DIR="$FILE_DIR/tests/$PROBLEM"
+    # tests live one level up from python/ or cpp/
+    WEEK_DIR="$(dirname "$(dirname "$FILE")")"
+    TEST_DIR="$WEEK_DIR/tests/$PROBLEM"
 
     if [ ! -d "$TEST_DIR" ]; then
       echo "No test cases found at $TEST_DIR"
-      echo "Run: ./dsa.sh new <num> <name> <url> first"
       exit 1
     fi
 
@@ -84,8 +84,14 @@ case "$1" in
       oj test --command "python3 $FILE" --directory "$TEST_DIR"
 
     elif [ "$EXT" = "cpp" ]; then
-      BIN="${FILE%.cpp}"
+      BIN="/tmp/${PROBLEM}"
       g++ -O2 -o "$BIN" "$FILE"
+      oj test --command "$BIN" --directory "$TEST_DIR"
+      rm -f "$BIN"
+
+    elif [ "$EXT" = "rs" ]; then
+      BIN="/tmp/${PROBLEM}"
+      rustc -o "$BIN" "$FILE"
       oj test --command "$BIN" --directory "$TEST_DIR"
       rm -f "$BIN"
     fi
@@ -112,8 +118,9 @@ case "$1" in
     REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
     cd "$REPO_ROOT"
 
-    git add "my-journey/dsa/week-$(printf '%02d' $WEEK)/${SLUG}.py" \
-            "my-journey/dsa/week-$(printf '%02d' $WEEK)/${SLUG}.cpp" 2>/dev/null || true
+    git add "my-journey/dsa/week-$(printf '%02d' $WEEK)/python/${SLUG}.py" \
+            "my-journey/dsa/week-$(printf '%02d' $WEEK)/cpp/${SLUG}.cpp" \
+            "my-journey/dsa/week-$(printf '%02d' $WEEK)/rust/${SLUG}.rs" 2>/dev/null || true
 
     git commit -m "solve: ${SLUG} — week ${WEEK}"
     git push origin main

@@ -2,7 +2,7 @@
 """
 Competitive Companion listener — port 27121
 Open a problem in your browser, click the extension, and this script:
-  - Creates .py and .cpp from templates
+  - Creates .py and .cpp from templates in language subfolders
   - Saves test cases locally (gitignored)
 """
 
@@ -63,11 +63,13 @@ class Handler(http.server.BaseHTTPRequestHandler):
         week     = get_week()
         week_dir = SCRIPT_DIR / f"week-{week:02d}"
         slug     = slugify(name)
-        py_file  = week_dir / f"{slug}.py"
-        cpp_file = week_dir / f"{slug}.cpp"
-        test_dir = week_dir / "tests" / slug
 
-        week_dir.mkdir(exist_ok=True)
+        py_file  = week_dir / "python" / f"{slug}.py"
+        cpp_file = week_dir / "cpp"    / f"{slug}.cpp"
+        test_dir = week_dir / "tests"  / slug
+
+        (week_dir / "python").mkdir(parents=True, exist_ok=True)
+        (week_dir / "cpp").mkdir(parents=True, exist_ok=True)
         test_dir.mkdir(parents=True, exist_ok=True)
 
         py_tmpl  = (SCRIPT_DIR / "_template.py").read_text()
@@ -92,11 +94,11 @@ class Handler(http.server.BaseHTTPRequestHandler):
         print(f"\n  Waiting for next problem...")
 
     def log_message(self, format, *args):  # noqa: A002
-        pass  # suppress raw HTTP logs
+        pass
 
 
 if __name__ == '__main__':
     print(f"Listening on port {PORT}...")
-    print(f"Week {get_week()} → files go to week-{get_week():02d}/")
+    print(f"Week {get_week()} → files go to week-{get_week():02d}/python/ and week-{get_week():02d}/cpp/")
     print(f"Open a problem and click the Competitive Companion extension.\n")
     http.server.HTTPServer(('', PORT), Handler).serve_forever()
