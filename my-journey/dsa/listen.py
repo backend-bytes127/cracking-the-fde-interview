@@ -2,8 +2,9 @@
 """
 Competitive Companion listener — port 27121
 Open a problem in your browser, click the extension, and this script:
+  - Detects track: LeetCode → faang/, everything else → cp/
   - Creates .py and .cpp from templates in language subfolders
-  - Infers input parsing from sample test cases
+  - Infers input parsing from sample test cases (CP only)
   - Saves test cases locally (gitignored)
 """
 
@@ -33,6 +34,10 @@ def slugify(name: str) -> str:
         prefix, title = None, name
     slug = re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')
     return f"{prefix}-{slug}" if prefix else slug
+
+
+def is_leetcode(url: str) -> bool:
+    return 'leetcode.com' in url
 
 
 def is_int(s: str) -> bool:
@@ -94,7 +99,7 @@ def infer_input(tests: list) -> tuple:
     return '\n'.join(py_parts), '\n    '.join(cpp_parts)
 
 
-def build_py(name: str, url: str, py_body: str) -> str:
+def build_cp_py(name: str, url: str, py_body: str) -> str:
     tmpl = (SCRIPT_DIR / "_template.py").read_text()
     filled = (tmpl
         .replace('# Problem:', f'# Problem: {name}')
@@ -102,12 +107,26 @@ def build_py(name: str, url: str, py_body: str) -> str:
     return filled.replace('    pass', py_body)
 
 
-def build_cpp(name: str, url: str, cpp_body: str) -> str:
+def build_cp_cpp(name: str, url: str, cpp_body: str) -> str:
     tmpl = (SCRIPT_DIR / "_template.cpp").read_text()
     filled = (tmpl
         .replace('// Problem:', f'// Problem: {name}')
         .replace('// Link:', f'// Link: {url}'))
     return filled.replace('void solve() {\n\n}', f'void solve() {{\n    {cpp_body}\n}}')
+
+
+def build_lc_py(name: str, url: str) -> str:
+    tmpl = (SCRIPT_DIR / "_template_lc.py").read_text()
+    return (tmpl
+        .replace('# Problem:', f'# Problem: {name}')
+        .replace('# Link:', f'# Link: {url}'))
+
+
+def build_lc_cpp(name: str, url: str) -> str:
+    tmpl = (SCRIPT_DIR / "_template_lc.cpp").read_text()
+    return (tmpl
+        .replace('// Problem:', f'// Problem: {name}')
+        .replace('// Link:', f'// Link: {url}'))
 
 
 class Handler(http.server.BaseHTTPRequestHandler):
@@ -127,9 +146,11 @@ class Handler(http.server.BaseHTTPRequestHandler):
         tests = data.get('tests', [])
 
         week     = get_week()
-        week_dir = SCRIPT_DIR / f"week-{week:02d}"
         slug     = slugify(name)
+        lc       = is_leetcode(url)
+        track    = "faang" if lc else "cp"
 
+        week_dir = SCRIPT_DIR / track / f"week-{week:02d}"
         py_file  = week_dir / "python" / f"{slug}.py"
         cpp_file = week_dir / "cpp"    / f"{slug}.cpp"
         test_dir = week_dir / "tests"  / slug
@@ -138,13 +159,19 @@ class Handler(http.server.BaseHTTPRequestHandler):
         (week_dir / "cpp").mkdir(parents=True, exist_ok=True)
         test_dir.mkdir(parents=True, exist_ok=True)
 
-        py_body, cpp_body = infer_input(tests)
+        if lc:
+            py_content  = build_lc_py(name, url)
+            cpp_content = build_lc_cpp(name, url)
+        else:
+            py_body, cpp_body = infer_input(tests)
+            py_content  = build_cp_py(name, url, py_body)
+            cpp_content = build_cp_cpp(name, url, cpp_body)
 
         if not py_file.exists():
-            py_file.write_text(build_py(name, url, py_body))
+            py_file.write_text(py_content)
 
         if not cpp_file.exists():
-            cpp_file.write_text(build_cpp(name, url, cpp_body))
+            cpp_file.write_text(cpp_content)
 
         for i, test in enumerate(tests, 1):
             (test_dir / f"sample-{i}.in").write_text(test['input'])
@@ -152,6 +179,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
         rel = lambda p: p.relative_to(SCRIPT_DIR.parent.parent)
         print(f"\n  Problem  : {name}")
+        print(f"  Track    : {track.upper()} ({'LeetCode' if lc else 'Competitive Programming'})")
         print(f"  URL      : {url}")
         print(f"  py       → {rel(py_file)}")
         print(f"  cpp      → {rel(cpp_file)}")
@@ -163,7 +191,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
+    week = get_week()
     print(f"Listening on port {PORT}...")
-    print(f"Week {get_week()} → week-{get_week():02d}/python/ and week-{get_week():02d}/cpp/")
+    print(f"Week {week} → cp/week-{week:02d}/ or faang/week-{week:02d}/ (auto-detected by URL)")
     print(f"Open a problem and click the Competitive Companion extension.\n")
     http.server.HTTPServer(('', PORT), Handler).serve_forever()

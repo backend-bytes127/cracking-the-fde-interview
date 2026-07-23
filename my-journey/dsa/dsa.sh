@@ -1,23 +1,23 @@
 #!/bin/bash
 # Usage:
-#   ./dsa.sh listen                      — start competitive-companion listener
-#   ./dsa.sh new <num> <name> <url>      — create files + download test cases
-#   ./dsa.sh test <file>                 — test solution against samples
-#   ./dsa.sh submit <file> <url>         — submit to Codeforces/LeetCode
-#   ./dsa.sh push <slug>                 — git commit + push after solving
+#   ./dsa.sh listen                           — start competitive-companion listener
+#   ./dsa.sh new cp <num> <name> <url>        — create CP files + download tests
+#   ./dsa.sh new faang <num> <name> <url>     — create FAANG/LC files
+#   ./dsa.sh test <file>                      — test solution against samples
+#   ./dsa.sh submit <file> <url>              — submit to Codeforces
+#   ./dsa.sh push                             — git commit + push after solving
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# Auto-detect current week from start date
 WEEK=$(python3 -c "
 from datetime import date
 start = date(2026, 7, 22)
 today = date.today()
 print((today - start).days // 7 + 1)
 ")
-WEEK_DIR="$SCRIPT_DIR/week-$(printf '%02d' $WEEK)"
+WEEK_LABEL="week-$(printf '%02d' $WEEK)"
 
 case "$1" in
 
@@ -28,35 +28,46 @@ case "$1" in
 
   # ── new ────────────────────────────────────────────────────────────────
   new)
-    NUM="$2"; NAME="$3"; URL="$4"
-    if [ -z "$NUM" ] || [ -z "$NAME" ] || [ -z "$URL" ]; then
-      echo "Usage: ./dsa.sh new <num> <name> <url>"
+    TRACK="$2"; NUM="$3"; NAME="$4"; URL="$5"
+    if [ -z "$TRACK" ] || [ -z "$NUM" ] || [ -z "$NAME" ] || [ -z "$URL" ]; then
+      echo "Usage: ./dsa.sh new <cp|faang> <num> <name> <url>"
       exit 1
     fi
 
-    mkdir -p "$WEEK_DIR"
-    PY_FILE="$WEEK_DIR/${NUM}-${NAME}.py"
-    CPP_FILE="$WEEK_DIR/${NUM}-${NAME}.cpp"
-    TEST_DIR="$WEEK_DIR/tests/${NUM}-${NAME}"
+    WEEK_DIR="$SCRIPT_DIR/$TRACK/$WEEK_LABEL"
+    mkdir -p "$WEEK_DIR/python" "$WEEK_DIR/cpp"
 
-    # Python — copy template and fill header
-    cp "$SCRIPT_DIR/_template.py" "$PY_FILE"
+    SLUG="${NUM}-${NAME}"
+    PY_FILE="$WEEK_DIR/python/${SLUG}.py"
+    CPP_FILE="$WEEK_DIR/cpp/${SLUG}.cpp"
+    TEST_DIR="$WEEK_DIR/tests/${SLUG}"
+
+    if [ "$TRACK" = "faang" ]; then
+      PY_TMPL="$SCRIPT_DIR/_template_lc.py"
+      CPP_TMPL="$SCRIPT_DIR/_template_lc.cpp"
+    else
+      PY_TMPL="$SCRIPT_DIR/_template.py"
+      CPP_TMPL="$SCRIPT_DIR/_template.cpp"
+    fi
+
+    cp "$PY_TMPL" "$PY_FILE"
     sed -i '' "s|# Problem:|# Problem: $NAME|" "$PY_FILE"
     sed -i '' "s|# Link:|# Link: $URL|" "$PY_FILE"
 
-    # C++ — copy template and fill header
-    cp "$SCRIPT_DIR/_template.cpp" "$CPP_FILE"
+    cp "$CPP_TMPL" "$CPP_FILE"
     sed -i '' "s|// Problem:|// Problem: $NAME|" "$CPP_FILE"
     sed -i '' "s|// Link:|// Link: $URL|" "$CPP_FILE"
 
-    # Download test cases (*.in / *.out are gitignored)
     mkdir -p "$TEST_DIR"
-    echo "Downloading test cases..."
-    oj download --directory "$TEST_DIR" "$URL" 2>&1 | grep -E "(sample|error|ERROR|✓|×)" || true
+    if [ "$TRACK" = "cp" ]; then
+      echo "Downloading test cases..."
+      oj download --directory "$TEST_DIR" "$URL" 2>&1 | grep -E "(sample|error|ERROR|✓|×)" || true
+    fi
 
     echo ""
-    echo "  py  → $PY_FILE"
-    echo "  cpp → $CPP_FILE"
+    echo "  track → $TRACK"
+    echo "  py    → $PY_FILE"
+    echo "  cpp   → $CPP_FILE"
     echo "  tests → $TEST_DIR"
     ;;
 
@@ -71,7 +82,7 @@ case "$1" in
     EXT="${FILE##*.}"
     BASENAME="$(basename "$FILE")"
     PROBLEM="${BASENAME%.*}"
-    # tests live one level up from python/ or cpp/
+    # tests/ lives two levels up from the language folder (cp/week-01/python/file.py → cp/week-01)
     WEEK_DIR="$(dirname "$(dirname "$FILE")")"
     TEST_DIR="$WEEK_DIR/tests/$PROBLEM"
 
@@ -109,20 +120,13 @@ case "$1" in
 
   # ── push ───────────────────────────────────────────────────────────────
   push)
-    SLUG="$2"
-    if [ -z "$SLUG" ]; then
-      echo "Usage: ./dsa.sh push <slug>   (e.g. J-multiples)"
-      exit 1
-    fi
-
     REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
     cd "$REPO_ROOT"
 
-    git add "my-journey/dsa/week-$(printf '%02d' $WEEK)/python/${SLUG}.py" \
-            "my-journey/dsa/week-$(printf '%02d' $WEEK)/cpp/${SLUG}.cpp" \
-            "my-journey/dsa/week-$(printf '%02d' $WEEK)/rust/${SLUG}.rs" 2>/dev/null || true
+    git add my-journey/dsa/cp/ my-journey/dsa/faang/ my-journey/TRACKER.md my-journey/weekly-log/ 2>/dev/null || true
 
-    git commit -m "solve: ${SLUG} — week ${WEEK}"
+    MSG="${2:-solve: week ${WEEK}}"
+    git commit -m "$MSG"
     git push origin main
     echo "Pushed."
     ;;
@@ -130,11 +134,16 @@ case "$1" in
   # ── help ───────────────────────────────────────────────────────────────
   *)
     echo ""
-    echo "  ./dsa.sh listen                      Start competitive-companion listener"
-    echo "  ./dsa.sh new    <num> <name> <url>   Create files + download tests"
-    echo "  ./dsa.sh test   <file>               Test solution against samples"
-    echo "  ./dsa.sh submit <file> <url>         Submit to judge"
-    echo "  ./dsa.sh push   <slug>               Commit + push to GitHub"
+    echo "  ./dsa.sh listen                            Start competitive-companion listener"
+    echo "  ./dsa.sh new cp    <num> <name> <url>      Create CP files + download tests"
+    echo "  ./dsa.sh new faang <num> <name> <url>      Create FAANG/LC files"
+    echo "  ./dsa.sh test      <file>                  Test solution against samples"
+    echo "  ./dsa.sh submit    <file> <url>            Submit to judge (CP only)"
+    echo "  ./dsa.sh push      [\"commit msg\"]          Commit + push to GitHub"
+    echo ""
+    echo "  Tracks:"
+    echo "    cp/    — TLE Eliminators, Codeforces, AtCoder (stdin-based)"
+    echo "    faang/ — S30 + LeetCode (class Solution templates)"
     echo ""
     ;;
 esac

@@ -8,32 +8,45 @@
 
 ## Stats
 
-| Metric | Count |
-|--------|-------|
-| Problems solved | 5 |
-| Mock interviews | 0 |
-| Current streak | 2 days |
-| Longest streak | 2 days |
+| Metric | CP Track | FAANG Track | Total |
+|--------|----------|-------------|-------|
+| Problems solved | 5 | 0 | 5 |
+| Mock interviews | — | 0 | 0 |
+| Current streak | 2 days | — | — |
+| Longest streak | 2 days | — | — |
 
 ---
 
-## Phase 1 — Pattern Mastery (Jul 22 – Oct 31, 2026)
+## Schedule
 
-### Week 1 · Jul 22–28
+| Day | Focus |
+|-----|-------|
+| Mon / Wed / Fri | FAANG — S30 lesson + LC daily problem |
+| Tue / Thu | CP — TLE Eliminators (Codeforces) |
+| Weekend | Contests (Codeforces / LC Weekly) |
 
-- [x] Jul 22 — [Is A Greater Than B](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/I) · [py](dsa/week-01/python/001-is-greater.py) · [cpp](dsa/week-01/cpp/001-is-greater.cpp) · Basics · Easy
-- [x] Jul 23 — [Multiples](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/J) · [py](dsa/week-01/python/002-multiples.py) · [cpp](dsa/week-01/cpp/002-multiples.cpp) · Basics · Easy
-- [x] Jul 23 — [Say Hello With C++](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/A) · [py](dsa/week-01/python/A-say-hello-with-c.py) · [cpp](dsa/week-01/cpp/A-say-hello-with-c.cpp) · Basics · Easy
-- [x] Jul 23 — [Digits Summation](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/F) · [py](dsa/week-01/python/F-digits-summation.py) · [cpp](dsa/week-01/cpp/F-digits-summation.cpp) · Basics · Easy
-- [x] Jul 23 — [The Brothers](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/L) · [py](dsa/week-01/python/L-the-brothers.py) · [cpp](dsa/week-01/cpp/L-the-brothers.cpp) · Strings · Easy
-- [ ] Jul 24 — 
+---
+
+## CP Track — TLE Eliminators (Codeforces)
+
+Files live in `dsa/cp/week-XX/python/` and `dsa/cp/week-XX/cpp/`
+
+### Phase 1 — Pattern Mastery (Jul 22 – Oct 31, 2026)
+
+#### Week 1 · Jul 22–28
+
+- [x] Jul 22 — [Is A Greater Than B](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/I) · [py](dsa/cp/week-01/python/001-is-greater.py) · [cpp](dsa/cp/week-01/cpp/001-is-greater.cpp) · Basics · Easy
+- [x] Jul 23 — [Multiples](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/J) · [py](dsa/cp/week-01/python/002-multiples.py) · [cpp](dsa/cp/week-01/cpp/002-multiples.cpp) · Basics · Easy
+- [x] Jul 23 — [Say Hello With C++](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/A) · [py](dsa/cp/week-01/python/A-say-hello-with-c.py) · [cpp](dsa/cp/week-01/cpp/A-say-hello-with-c.cpp) · Basics · Easy
+- [x] Jul 23 — [Digits Summation](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/F) · [py](dsa/cp/week-01/python/F-digits-summation.py) · [cpp](dsa/cp/week-01/cpp/F-digits-summation.cpp) · Basics · Easy
+- [x] Jul 23 — [The Brothers](https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/L) · [py](dsa/cp/week-01/python/L-the-brothers.py) · [cpp](dsa/cp/week-01/cpp/L-the-brothers.cpp) · Strings · Easy
 - [ ] Jul 24 — 
 - [ ] Jul 25 — 
 - [ ] Jul 26 — 
 - [ ] Jul 27 — 
 - [ ] Jul 28 — 
 
-### Week 2 · Jul 29–Aug 4
+#### Week 2 · Jul 29–Aug 4
 
 - [ ] Jul 29 — 
 - [ ] Jul 30 — 
@@ -43,7 +56,7 @@
 - [ ] Aug 03 — 
 - [ ] Aug 04 — 
 
-### Week 3 · Aug 5–11
+#### Week 3 · Aug 5–11
 
 - [ ] Aug 05 — 
 - [ ] Aug 06 — 
@@ -53,7 +66,7 @@
 - [ ] Aug 10 — 
 - [ ] Aug 11 — 
 
-### Week 4 · Aug 12–18
+#### Week 4 · Aug 12–18
 
 - [ ] Aug 12 — 
 - [ ] Aug 13 — 
@@ -63,7 +76,7 @@
 - [ ] Aug 17 — 
 - [ ] Aug 18 — 
 
-### Week 5 · Aug 19–25
+#### Week 5 · Aug 19–25
 
 - [ ] Aug 19 — 
 - [ ] Aug 20 — 
@@ -73,7 +86,7 @@
 - [ ] Aug 24 — 
 - [ ] Aug 25 — 
 
-### Week 6 · Aug 26–Sep 1
+#### Week 6 · Aug 26–Sep 1
 
 - [ ] Aug 26 — 
 - [ ] Aug 27 — 
@@ -83,7 +96,7 @@
 - [ ] Aug 31 — 
 - [ ] Sep 01 — 
 
-### Week 7 · Sep 2–8
+#### Week 7 · Sep 2–8
 
 - [ ] Sep 02 — 
 - [ ] Sep 03 — 
@@ -93,7 +106,7 @@
 - [ ] Sep 07 — 
 - [ ] Sep 08 — 
 
-### Week 8 · Sep 9–15
+#### Week 8 · Sep 9–15
 
 - [ ] Sep 09 — 
 - [ ] Sep 10 — 
@@ -103,7 +116,7 @@
 - [ ] Sep 14 — 
 - [ ] Sep 15 — 
 
-### Week 9 · Sep 16–22
+#### Week 9 · Sep 16–22
 
 - [ ] Sep 16 — 
 - [ ] Sep 17 — 
@@ -113,7 +126,7 @@
 - [ ] Sep 21 — 
 - [ ] Sep 22 — 
 
-### Week 10 · Sep 23–29
+#### Week 10 · Sep 23–29
 
 - [ ] Sep 23 — 
 - [ ] Sep 24 — 
@@ -123,7 +136,7 @@
 - [ ] Sep 28 — 
 - [ ] Sep 29 — 
 
-### Week 11 · Sep 30–Oct 6
+#### Week 11 · Sep 30–Oct 6
 
 - [ ] Sep 30 — 
 - [ ] Oct 01 — 
@@ -133,7 +146,7 @@
 - [ ] Oct 05 — 
 - [ ] Oct 06 — 
 
-### Week 12 · Oct 7–13
+#### Week 12 · Oct 7–13
 
 - [ ] Oct 07 — 
 - [ ] Oct 08 — 
@@ -143,7 +156,7 @@
 - [ ] Oct 12 — 
 - [ ] Oct 13 — 
 
-### Week 13 · Oct 14–20
+#### Week 13 · Oct 14–20
 
 - [ ] Oct 14 — 
 - [ ] Oct 15 — 
@@ -153,7 +166,7 @@
 - [ ] Oct 19 — 
 - [ ] Oct 20 — 
 
-### Week 14 · Oct 21–27
+#### Week 14 · Oct 21–27
 
 - [ ] Oct 21 — 
 - [ ] Oct 22 — 
@@ -163,16 +176,14 @@
 - [ ] Oct 26 — 
 - [ ] Oct 27 — 
 
-### Week 15 · Oct 28–31 _(end of Phase 1)_
+#### Week 15 · Oct 28–31 _(end of Phase 1)_
 
 - [ ] Oct 28 — 
 - [ ] Oct 29 — 
 - [ ] Oct 30 — 
 - [ ] Oct 31 — 
 
----
-
-## Phase 2 — Timed + Google Medium/Hard (Nov 1, 2026 – Feb 28, 2027)
+### Phase 2 — Speed + Hard Problems (Nov 1, 2026 – Feb 28, 2027)
 
 > Expand week-by-week as you enter this phase.
 
@@ -183,28 +194,47 @@
 
 ---
 
-## Phase 3 — Mock Interviews (Mar 1 – Jul 22, 2027)
+## FAANG Track — S30 + LeetCode
 
-> 2 mocks per week minimum. Log here.
+Files live in `dsa/faang/week-XX/python/` and `dsa/faang/week-XX/cpp/`
 
-| # | Date | Platform | Result | Notes |
-|---|------|----------|--------|-------|
-| 1 | | | | |
+Format: `- [x] Date — [Problem](LC_URL) · [py](...) · [cpp](...) · Pattern · Difficulty`
+
+### Week 1 · Jul 22–28
+
+- [ ] Jul 25 — 
+- [ ] Jul 28 — 
+
+### Week 2 · Jul 29–Aug 4
+
+- [ ] Jul 30 — 
+- [ ] Aug 03 — 
+- [ ] Aug 04 — 
+
+> Add entries as you solve. Mon/Wed/Fri cadence.
+
+---
+
+## Mock Interviews
+
+| # | Date | Platform | Problem | Result | Notes |
+|---|------|----------|---------|--------|-------|
+| 1 | | | | | |
 
 ---
 
 ## Pattern Coverage
 
-| Pattern | Problems Done | Confident? |
-|---------|--------------|------------|
-| Two Pointers | 0 | ⬜ |
-| Sliding Window | 0 | ⬜ |
-| Prefix Sum | 0 | ⬜ |
-| Binary Search | 0 | ⬜ |
-| BFS / DFS | 0 | ⬜ |
-| Dynamic Programming | 0 | ⬜ |
-| Backtracking | 0 | ⬜ |
-| Heap | 0 | ⬜ |
-| Union Find | 0 | ⬜ |
-| Topological Sort | 0 | ⬜ |
-| Monotonic Stack | 0 | ⬜ |
+| Pattern | CP Done | FAANG Done | Confident? |
+|---------|---------|------------|------------|
+| Two Pointers | 0 | 0 | ⬜ |
+| Sliding Window | 0 | 0 | ⬜ |
+| Prefix Sum | 0 | 0 | ⬜ |
+| Binary Search | 0 | 0 | ⬜ |
+| BFS / DFS | 0 | 0 | ⬜ |
+| Dynamic Programming | 0 | 0 | ⬜ |
+| Backtracking | 0 | 0 | ⬜ |
+| Heap | 0 | 0 | ⬜ |
+| Union Find | 0 | 0 | ⬜ |
+| Topological Sort | 0 | 0 | ⬜ |
+| Monotonic Stack | 0 | 0 | ⬜ |
